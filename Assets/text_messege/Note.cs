@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -11,16 +11,16 @@ public class Note : MonoBehaviour
     public GameObject notice;
     public GameObject noteUI;
     public Text text;
-  
+
     void Start()
     {
-        
+
     }
 
-    
+
     void Update()
     {
-        
+
     }
     private void OnTriggerStay(Collider other)
     {

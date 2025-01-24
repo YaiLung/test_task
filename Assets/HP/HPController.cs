@@ -1,70 +1,50 @@
+using System;
 using UnityEngine;
 
-// скрипт для хп c методами получения урона и концом игры 
+
+// РћС‚РІРµС‡Р°РµС‚ Р·Р° СѓРїСЂР°РІР»РµРЅРёРµ СЃРѕСЃС‚РѕСЏРЅРёРµРј Р·РґРѕСЂРѕРІСЊСЏ
+
 public class HPController : MonoBehaviour
 {
-    public int maxHealth = 100;
+    public int MaxHealth { get; private set; } = 100;
     private int currentHealth;
-    private bool isGameOver = false;
 
-    private HealthBar healthBar;
-    private DamageProcessor damageProcessor;
-    private GameOverHandler gameOverHandler;
+    public event Action<int, int> OnHealthChanged; // РЎРѕР±С‹С‚РёРµ РёР·РјРµРЅРµРЅРёСЏ Р·РґРѕСЂРѕРІСЊСЏ 
+    public event Action OnDeath; // РЎРѕР±С‹С‚РёРµ РїРѕСЂР°Р¶РµРЅРёСЏ
 
     private void Start()
     {
-        currentHealth = maxHealth;
-
-        healthBar = GetComponentInChildren<HealthBar>();
-        damageProcessor = GetComponent<DamageProcessor>();
-        gameOverHandler = GetComponent<GameOverHandler>();
-
-        if (healthBar != null)
-        {
-            healthBar.UpdateHealthBar(maxHealth, currentHealth);
-        }
-        else
-        {
-            Debug.LogError("HealthBar not found in Character's hierarchy!"); // подключение отсутсвует
-        }
-
-        if (damageProcessor != null)
-        {
-            damageProcessor.Initialize(this); // Передаем ссылку на HPController
-        }
-
-        if (gameOverHandler == null)
-        {
-            Debug.LogError("GameOverHandler not found!"); // подключение отсутсвует
-        }
+        currentHealth = MaxHealth;
+        OnHealthChanged?.Invoke(currentHealth, MaxHealth);
     }
 
-    public void TakeDamage(int damage) // хоть был создан новый класс для конца игры, метод для получения урона остался (будет передоватся в скрипт DamageProcessor)
+    
+    // РЈРјРµРЅСЊС€Р°РµС‚ Р·РґРѕСЂРѕРІСЊРµ РЅР° СѓРєР°Р·Р°РЅРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ
+   
+    public void TakeDamage(int damage)
     {
-        if (isGameOver) return;
-
         currentHealth -= damage;
         if (currentHealth < 0) currentHealth = 0;
 
-        if (healthBar != null)
-        {
-            healthBar.UpdateHealthBar(maxHealth, currentHealth);
-        }
+        // РЈРІРµРґРѕРјР»СЏРµРј СЃР»СѓС€Р°С‚РµР»РµР№ РѕР± РёР·РјРµРЅРµРЅРёРё Р·РґРѕСЂРѕРІСЊСЏ
+        OnHealthChanged?.Invoke(currentHealth, MaxHealth);
 
-        Debug.Log($"Player took {damage} damage. Current HP: {currentHealth}");
-
+        // Р•СЃР»Рё Р·РґРѕСЂРѕРІСЊРµ Р·Р°РєРѕРЅС‡РёР»РѕСЃСЊ РІС‹Р·С‹РІР°РµРј СЃРѕР±С‹С‚РёРµ РїРѕСЂР°Р¶РµРЅРёСЏ
         if (currentHealth <= 0)
         {
-            isGameOver = true;
-            if (gameOverHandler != null)
-            {
-                gameOverHandler.TriggerGameOver();
-            }
+            OnDeath?.Invoke();
         }
     }
 
+    
+    // Р’РѕР·РІСЂР°С‰Р°РµС‚ С‚РµРєСѓС‰РµРµ Р·РґРѕСЂРѕРІСЊРµ
+    
     public int GetCurrentHealth()
     {
         return currentHealth;
     }
 }
+
+
+
+

@@ -1,28 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// ускорение при столкновении
+// СѓСЃРєРѕСЂРµРЅРёРµ РїСЂРё СЃС‚РѕР»РєРЅРѕРІРµРЅРёРё
 public class SpeedBoost : MonoBehaviour
 {
-    [SerializeField] private float boostDuration = 3f; // Длительность 
-    [SerializeField] private float boostCount = 2f; // Множитель 
+    [SerializeField] private float boostDuration = 3f; // Р”Р»РёС‚РµР»СЊРЅРѕСЃС‚СЊ 
+    [SerializeField] private float boostCount = 2f; // РњРЅРѕР¶РёС‚РµР»СЊ 
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Проверяем, что столкнулся с объектом, имеющим скрипт Move
+        // РџСЂРѕРІРµСЂСЏРµРј, С‡С‚Рѕ СЃС‚РѕР»РєРЅСѓР»СЃСЏ СЃ РѕР±СЉРµРєС‚РѕРј, РёРјРµСЋС‰РёРј СЃРєСЂРёРїС‚ Move
         if (collision.gameObject.TryGetComponent(out Move.Move player))
         {
-            
+
             StartCoroutine(BoostPlayerSpeed(player));
         }
     }
 
-    private IEnumerator BoostPlayerSpeed(Move.Move player) // Возвращаем исходную скорость
+    private IEnumerator BoostPlayerSpeed(Move.Move player) // Р’РѕР·РІСЂР°С‰Р°РµРј РёСЃС…РѕРґРЅСѓСЋ СЃРєРѕСЂРѕСЃС‚СЊ
     {
-        float originalSpeed = player.Speed; 
-        player.Speed *= boostCount; 
-        yield return new WaitForSeconds(boostDuration); 
-        player.Speed = originalSpeed; 
+        float originalSpeed = player.Speed;
+        player.Speed *= boostCount;
+        yield return new WaitForSeconds(boostDuration);
+        player.Speed = originalSpeed;
     }
 }
 

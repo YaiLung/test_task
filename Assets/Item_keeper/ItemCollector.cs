@@ -1,51 +1,51 @@
 using System.Collections.Generic;
 using UnityEngine;
-// скрипт для записи подобранных предметов, в него можно вложить предметы на которые будет триггер, после сбора они пропадут, для открытия списка нужно нажать I
+// СЃРєСЂРёРїС‚ РґР»СЏ Р·Р°РїРёСЃРё РїРѕРґРѕР±СЂР°РЅРЅС‹С… РїСЂРµРґРјРµС‚РѕРІ, РІ РЅРµРіРѕ РјРѕР¶РЅРѕ РІР»РѕР¶РёС‚СЊ РїСЂРµРґРјРµС‚С‹ РЅР° РєРѕС‚РѕСЂС‹Рµ Р±СѓРґРµС‚ С‚СЂРёРіРіРµСЂ, РїРѕСЃР»Рµ СЃР±РѕСЂР° РѕРЅРё РїСЂРѕРїР°РґСѓС‚, РґР»СЏ РѕС‚РєСЂС‹С‚РёСЏ СЃРїРёСЃРєР° РЅСѓР¶РЅРѕ РЅР°Р¶Р°С‚СЊ I
 
-// теперь можно добовлять сколько угодно предметов через инспектор
+// С‚РµРїРµСЂСЊ РјРѕР¶РЅРѕ РґРѕР±РѕРІР»СЏС‚СЊ СЃРєРѕР»СЊРєРѕ СѓРіРѕРґРЅРѕ РїСЂРµРґРјРµС‚РѕРІ С‡РµСЂРµР· РёРЅСЃРїРµРєС‚РѕСЂ
 
 public class ItemCollector : MonoBehaviour
 {
-    [SerializeField] private List<GameObject> items; // Список всех предметов для добовления в список перетащите предмет в items в inspector
-    [SerializeField] private GameObject uiListPanel; // Панель UI для отображения списка
-    [SerializeField] private GameObject itemEntryPrefab; // Префаб для отображения предмета
+    [SerializeField] private List<GameObject> items; // РЎРїРёСЃРѕРє РІСЃРµС… РїСЂРµРґРјРµС‚РѕРІ РґР»СЏ РґРѕР±РѕРІР»РµРЅРёСЏ РІ СЃРїРёСЃРѕРє РїРµСЂРµС‚Р°С‰РёС‚Рµ РїСЂРµРґРјРµС‚ РІ items РІ inspector
+    [SerializeField] private GameObject uiListPanel; // РџР°РЅРµР»СЊ UI РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ СЃРїРёСЃРєР°
+    [SerializeField] private GameObject itemEntryPrefab; // РџСЂРµС„Р°Р± РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РїСЂРµРґРјРµС‚Р°
 
-    private List<string> collectedItems = new List<string>(); // Список собранных предметов
+    private List<string> collectedItems = new List<string>(); // РЎРїРёСЃРѕРє СЃРѕР±СЂР°РЅРЅС‹С… РїСЂРµРґРјРµС‚РѕРІ
 
     private void Start()
     {
-        uiListPanel.SetActive(false); // Панель скрыта по умолчанию
+        uiListPanel.SetActive(false); // РџР°РЅРµР»СЊ СЃРєСЂС‹С‚Р° РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
     }
 
     private void Update()
     {
-        // Нажатие клавиши I для отображения/скрытия списка
+        // РќР°Р¶Р°С‚РёРµ РєР»Р°РІРёС€Рё I РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ/СЃРєСЂС‹С‚РёСЏ СЃРїРёСЃРєР°
         if (Input.GetKeyDown(KeyCode.I))
         {
             ToggleUIList();
         }
     }
 
-    // Метод для добавления предмета в список
+    // РњРµС‚РѕРґ РґР»СЏ РґРѕР±Р°РІР»РµРЅРёСЏ РїСЂРµРґРјРµС‚Р° РІ СЃРїРёСЃРѕРє
     public void CollectItem(string itemName, GameObject item)
     {
         if (!collectedItems.Contains(itemName))
         {
             collectedItems.Add(itemName);
             UpdateUI();
-            Destroy(item); // Убираем предмет с локации
+            Destroy(item); // РЈР±РёСЂР°РµРј РїСЂРµРґРјРµС‚ СЃ Р»РѕРєР°С†РёРё
         }
     }
 
     private void UpdateUI()
     {
-        // Очищаем старые записи
+        // РћС‡РёС‰Р°РµРј СЃС‚Р°СЂС‹Рµ Р·Р°РїРёСЃРё
         foreach (Transform child in uiListPanel.transform)
         {
             Destroy(child.gameObject);
         }
 
-        // Создаем новые записи на основе списка
+        // РЎРѕР·РґР°РµРј РЅРѕРІС‹Рµ Р·Р°РїРёСЃРё РЅР° РѕСЃРЅРѕРІРµ СЃРїРёСЃРєР°
         foreach (string item in collectedItems)
         {
             GameObject entry = Instantiate(itemEntryPrefab, uiListPanel.transform);
@@ -53,21 +53,19 @@ public class ItemCollector : MonoBehaviour
         }
     }
 
-    // Метод для отображения или скрытия списка
+    // РњРµС‚РѕРґ РґР»СЏ РѕС‚РѕР±СЂР°Р¶РµРЅРёСЏ РёР»Рё СЃРєСЂС‹С‚РёСЏ СЃРїРёСЃРєР°
     private void ToggleUIList()
     {
         uiListPanel.SetActive(!uiListPanel.activeSelf);
     }
 
-    // Взаимодействие с предметами
+    // Р’Р·Р°РёРјРѕРґРµР№СЃС‚РІРёРµ СЃ РїСЂРµРґРјРµС‚Р°РјРё
     private void OnTriggerEnter(Collider other)
     {
-        if (items.Contains(other.gameObject)) // Проверяем, есть ли предмет в списке
+        if (items.Contains(other.gameObject)) // РџСЂРѕРІРµСЂСЏРµРј, РµСЃС‚СЊ Р»Рё РїСЂРµРґРјРµС‚ РІ СЃРїРёСЃРєРµ
         {
             CollectItem(other.gameObject.name, other.gameObject);
         }
     }
 }
-
-
 

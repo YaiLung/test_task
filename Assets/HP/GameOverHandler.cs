@@ -1,11 +1,25 @@
 using UnityEngine;
-// скрипт для конца игры
+
+
+// РћР±СЂР°Р±Р°С‚С‹РІР°РµС‚ РїРѕСЂР°Р¶РµРЅРёРµ РёРіСЂРѕРєР°.
+
 public class GameOverHandler : MonoBehaviour
 {
-    public void TriggerGameOver() // метод из HPController
-    {
-        Debug.Log("Game Over!"); // конца игры
+    [SerializeField] private HPController hpController;
 
+    private void OnEnable()
+    {
+        hpController.OnDeath += HandleGameOver;
+    }
+
+    private void OnDisable()
+    {
+        hpController.OnDeath -= HandleGameOver;
+    }
+
+    private void HandleGameOver()
+    {
+        Debug.Log("Game Over!");
+       
     }
 }
-

@@ -1,15 +1,15 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-// для управления джойстиком нужны две картинки: 1 внутри(ручка) 2 бэкгрунд(снаружи)
-public class Joystick : MonoBehaviour, IDragHandler, IEndDragHandler // для поведения ручки
+// РґР»СЏ СѓРїСЂР°РІР»РµРЅРёСЏ РґР¶РѕР№СЃС‚РёРєРѕРј РЅСѓР¶РЅС‹ РґРІРµ РєР°СЂС‚РёРЅРєРё: 1 РІРЅСѓС‚СЂРё(СЂСѓС‡РєР°) 2 Р±СЌРєРіСЂСѓРЅРґ(СЃРЅР°СЂСѓР¶Рё)
+public class Joystick : MonoBehaviour, IDragHandler, IEndDragHandler // РґР»СЏ РїРѕРІРµРґРµРЅРёСЏ СЂСѓС‡РєРё
 {
-    [SerializeField] private RectTransform joystickBackground; // Фон 
-    [SerializeField] private RectTransform joystickHandle;     // Ручка 
-    [SerializeField] private float handleRange = 100f;         // смещение ручки
+    [SerializeField] private RectTransform joystickBackground; // Р¤РѕРЅ 
+    [SerializeField] private RectTransform joystickHandle;     // Р СѓС‡РєР° 
+    [SerializeField] private float handleRange = 100f;         // СЃРјРµС‰РµРЅРёРµ СЂСѓС‡РєРё
 
     private Vector2 inputVector = Vector2.zero;
 
-    public Vector2 InputVector => inputVector; // Открытое свойство для получения вектора ввода
+    public Vector2 InputVector => inputVector; // РћС‚РєСЂС‹С‚РѕРµ СЃРІРѕР№СЃС‚РІРѕ РґР»СЏ РїРѕР»СѓС‡РµРЅРёСЏ РІРµРєС‚РѕСЂР° РІРІРѕРґР°
 
     public void OnDrag(PointerEventData eventData)
     {
@@ -21,15 +21,15 @@ public class Joystick : MonoBehaviour, IDragHandler, IEndDragHandler // для пове
             out pos
         );
 
-        pos = Vector2.ClampMagnitude(pos, handleRange); // Ограничиваем ручку радиусом handleRange
+        pos = Vector2.ClampMagnitude(pos, handleRange); // РћРіСЂР°РЅРёС‡РёРІР°РµРј СЂСѓС‡РєСѓ СЂР°РґРёСѓСЃРѕРј handleRange
         joystickHandle.anchoredPosition = pos;
 
-        inputVector = pos / handleRange; 
+        inputVector = pos / handleRange;
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
         inputVector = Vector2.zero;
-        joystickHandle.anchoredPosition = Vector2.zero; // Возвращаем ручку в центр
+        joystickHandle.anchoredPosition = Vector2.zero; // Р’РѕР·РІСЂР°С‰Р°РµРј СЂСѓС‡РєСѓ РІ С†РµРЅС‚СЂ
     }
 }

@@ -1,27 +1,27 @@
 using System.Collections.Generic;
 using UnityEngine;
-// рандомный спавнер предметов на карте
+// СЂР°РЅРґРѕРјРЅС‹Р№ СЃРїР°РІРЅРµСЂ РїСЂРµРґРјРµС‚РѕРІ РЅР° РєР°СЂС‚Рµ
 public class RandomSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject item1; // типы
-    [SerializeField] private GameObject item2; 
-    [SerializeField] private GameObject item3; 
+    [SerializeField] private GameObject item1; // С‚РёРїС‹
+    [SerializeField] private GameObject item2;
+    [SerializeField] private GameObject item3;
 
-    [SerializeField] private int spawnCount = 3; // Количество предметов
-    [SerializeField] private Vector2 spawnAreaSize = new Vector2(25f, 25f); // Размер савна
+    [SerializeField] private int spawnCount = 3; // РљРѕР»РёС‡РµСЃС‚РІРѕ РїСЂРµРґРјРµС‚РѕРІ
+    [SerializeField] private Vector2 spawnAreaSize = new Vector2(25f, 25f); // Р Р°Р·РјРµСЂ СЃР°РІРЅР°
 
     private void Start()
     {
-       
+
         HideInitialItems();
 
-      
+
         SpawnItems();
     }
 
     private void HideInitialItems()
     {
-        
+
         item1.SetActive(false);
         item2.SetActive(false);
         item3.SetActive(false);
@@ -29,32 +29,32 @@ public class RandomSpawner : MonoBehaviour
 
     private void SpawnItems()
     {
-        
+
         List<GameObject> items = new List<GameObject> { item1, item2, item3 };
 
         for (int i = 0; i < spawnCount; i++)
         {
             if (items.Count == 0)
             {
-                Debug.LogWarning("Недостаточно уникальных предметов для спавна"); 
+                Debug.LogWarning("РќРµРґРѕСЃС‚Р°С‚РѕС‡РЅРѕ СѓРЅРёРєР°Р»СЊРЅС‹С… РїСЂРµРґРјРµС‚РѕРІ РґР»СЏ СЃРїР°РІРЅР°");
                 break;
             }
 
-            // Выбираем случайный объект из списка
+            // Р’С‹Р±РёСЂР°РµРј СЃР»СѓС‡Р°Р№РЅС‹Р№ РѕР±СЉРµРєС‚ РёР· СЃРїРёСЃРєР°
             int randomIndex = Random.Range(0, items.Count);
             GameObject randomItem = items[randomIndex];
 
-            // Генерируем случайную позицию 
+            // Р“РµРЅРµСЂРёСЂСѓРµРј СЃР»СѓС‡Р°Р№РЅСѓСЋ РїРѕР·РёС†РёСЋ 
             Vector3 randomPosition = new Vector3(
                 Random.Range(-spawnAreaSize.x / 2, spawnAreaSize.x / 2),
-                0, // Высота 
+                0, // Р’С‹СЃРѕС‚Р° 
                 Random.Range(-spawnAreaSize.y / 2, spawnAreaSize.y / 2)
             );
 
-            // Создаём объект на случайной позиции
+            // РЎРѕР·РґР°С‘Рј РѕР±СЉРµРєС‚ РЅР° СЃР»СѓС‡Р°Р№РЅРѕР№ РїРѕР·РёС†РёРё
             Instantiate(randomItem, randomPosition, Quaternion.identity).SetActive(true);
 
-            // Удаляем выбранный объект из списка, чтобы он не спаунился повторно
+            // РЈРґР°Р»СЏРµРј РІС‹Р±СЂР°РЅРЅС‹Р№ РѕР±СЉРµРєС‚ РёР· СЃРїРёСЃРєР°, С‡С‚РѕР±С‹ РѕРЅ РЅРµ СЃРїР°СѓРЅРёР»СЃСЏ РїРѕРІС‚РѕСЂРЅРѕ
             items.RemoveAt(randomIndex);
         }
     }

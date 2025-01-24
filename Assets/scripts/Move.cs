@@ -1,20 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-// контролер клавиаторой 
+// РєРѕРЅС‚СЂРѕР»РµСЂ РєР»Р°РІРёР°С‚РѕСЂРѕР№ 
 namespace Move
 {
     public class Move : MonoBehaviour
     {
-        [SerializeField] private float speed = 5f; // Скорость движения
-        [SerializeField] private float rotationSpeed = 10f; // Скорость поворота
+        [SerializeField] private float speed = 5f; // РЎРєРѕСЂРѕСЃС‚СЊ РґРІРёР¶РµРЅРёСЏ
+        [SerializeField] private float rotationSpeed = 10f; // РЎРєРѕСЂРѕСЃС‚СЊ РїРѕРІРѕСЂРѕС‚Р°
 
         private Rigidbody _rb;
-        //понадобится для других скиптов
+        //РїРѕРЅР°РґРѕР±РёС‚СЃСЏ РґР»СЏ РґСЂСѓРіРёС… СЃРєРёРїС‚РѕРІ
         public float Speed
         {
             get => speed;
-            set => speed = value; // Позволяет изменять значение скорости
+            set => speed = value; // РџРѕР·РІРѕР»СЏРµС‚ РёР·РјРµРЅСЏС‚СЊ Р·РЅР°С‡РµРЅРёРµ СЃРєРѕСЂРѕСЃС‚Рё
         }
 
         private void Start()
@@ -24,26 +24,25 @@ namespace Move
 
         private void Update()
         {
-            // Оси
+            // РћСЃРё
             float horizontalInput = Input.GetAxis("Vertical");
-            float verticalInput = Input.GetAxis("Horizontal"); 
+            float verticalInput = Input.GetAxis("Horizontal");
 
-            // Создание движения
+            // РЎРѕР·РґР°РЅРёРµ РґРІРёР¶РµРЅРёСЏ
             Vector3 moveInput = new Vector3(horizontalInput, 0, verticalInput);
 
-            
+
             Vector3 normalizedMoveInput = moveInput.normalized;
 
-            // Поворот
+            // РџРѕРІРѕСЂРѕС‚
             if (normalizedMoveInput != Vector3.zero)
             {
                 Quaternion targetRotation = Quaternion.LookRotation(normalizedMoveInput);
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             }
 
-            // Перемещение 
+            // РџРµСЂРµРјРµС‰РµРЅРёРµ 
             transform.Translate(normalizedMoveInput * speed * Time.deltaTime, Space.World);
         }
     }
 }
-

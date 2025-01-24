@@ -1095,6 +1095,7 @@ GameObject:
   - component: {fileID: 619355329}
   - component: {fileID: 619355331}
   - component: {fileID: 619355330}
+  - component: {fileID: 619355332}
   m_Layer: 0
   m_Name: HealthBar
   m_TagString: Untagged
@@ -1160,6 +1161,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 619355328}
   m_CullTransparentMesh: 1
+--- !u!114 &619355332
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 619355328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 676e680884b93d14ebffd329929cdae5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthFillImage: {fileID: 619355330}
 --- !u!1 &630138870 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: c0339e51d2e960e40880039a2dd84510, type: 3}
@@ -1212,7 +1226,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8ff6e6f78a940747a469b7fb962f917, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 100
 --- !u!114 &630138878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1225,7 +1238,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676e680884b93d14ebffd329929cdae5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Bar: {fileID: 619355330}
+  healthFillImage: {fileID: 0}
 --- !u!114 &630138879
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1294,9 +1307,37 @@ MonoBehaviour:
   m_GameObject: {fileID: 630138870}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44ebc9aeaf72feb43b41377587a33444, type: 3}
+  m_Script: {fileID: 11500000, guid: 748c63daba7de5a4f8a1a327dbebc7c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hpController: {fileID: 630138877}
+--- !u!114 &630138884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630138870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61636027cd2a536439d874472b4c2a54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpController: {fileID: 630138877}
+  healthBar: {fileID: 619355332}
+--- !u!114 &630138885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 630138870}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 676e680884b93d14ebffd329929cdae5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healthFillImage: {fileID: 619355330}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

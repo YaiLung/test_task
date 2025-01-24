@@ -1,16 +1,16 @@
 using UnityEngine;
-
+// РЎРєСЂРёРїС‚ РґР»СЏ СѓРїСЂР°РІР»РµРЅРёСЏ СЃР°Р№РґСЃС‚РёРєРѕРј
 public class CharacterController : MonoBehaviour
 {
-    [SerializeField] private Joystick joystick; // Ссылка на джойстик
-    [SerializeField] private float moveSpeed = 5f; // Скорость движения
+    [SerializeField] private Joystick joystick; // РЎСЃС‹Р»РєР° РЅР° РґР¶РѕР№СЃС‚РёРє
+    [SerializeField] private float moveSpeed = 5f; // РЎРєРѕСЂРѕСЃС‚СЊ РґРІРёР¶РµРЅРёСЏ
 
     private void Update()
     {
         Vector3 movement = new Vector3(joystick.InputVector.x, 0, joystick.InputVector.y);
         transform.Translate(movement * moveSpeed * Time.deltaTime, Space.World);
 
-        // Поворот персонажа в направлении движения
+        // РџРѕРІРѕСЂРѕС‚ РїРµСЂСЃРѕРЅР°Р¶Р° РІ РЅР°РїСЂР°РІР»РµРЅРёРё РґРІРёР¶РµРЅРёСЏ
         if (movement != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(movement);
@@ -18,4 +18,3 @@ public class CharacterController : MonoBehaviour
         }
     }
 }
-

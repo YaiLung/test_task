@@ -1,19 +1,18 @@
 using UnityEngine;
-// для добовления урона при сталкновении box collaider
+// СЃРєСЂРёРїС‚ РґР»СЏ РІСЂР°РіР°, РїСЂРё РєРѕРЅС‚Р°РєС‚Рµ РѕС‚РЅРёРјР°РµС‚СЃСЏ Р·РґРѕСЂРѕРІСЊРµ
 public class Enemy : MonoBehaviour
 {
-    public int damage = 50; // Урон который наносит враг
+    public int damage = 50; 
 
     private void OnCollisionEnter(Collision collision)
     {
-        // Проверяем есть ли у объекта с которым произошло столкновение компонент HPController
+   
         HPController playerHP = collision.gameObject.GetComponent<HPController>();
 
         if (playerHP != null)
         {
-            // Отнимаем здоровье у игрока
-            playerHP.TakeDamage(damage);
+            
+            playerHP.TakeDamage(damage);      
         }
     }
 }
-

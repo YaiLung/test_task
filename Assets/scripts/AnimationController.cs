@@ -1,5 +1,5 @@
 using UnityEngine;
-//аниматор контролер 
+//Р°РЅРёРјР°С‚РѕСЂ РєРѕРЅС‚СЂРѕР»РµСЂ 
 namespace Move
 {
     public class AnimationController : MonoBehaviour
@@ -9,22 +9,22 @@ namespace Move
 
         private void Start()
         {
-            
+
             _animator = GetComponent<Animator>();
             _moveScript = GetComponent<Move>();
 
-            
-        
+
+
         }
 
         private void Update()
         {
             if (_animator != null && _moveScript != null)
             {
-               
+
                 float currentSpeed = Mathf.Abs(_moveScript.Speed);
 
-                
+
                 _animator.SetFloat("speed", currentSpeed);
             }
         }
